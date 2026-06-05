@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Nos modules IFRI_MentorLink
+    'profiles',
+    'matching',
+    'messaging',
 ]
 
 MIDDLEWARE = [
