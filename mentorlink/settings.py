@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'profiles',
     'matching',
     'messaging',
+    'accounts',
 ]
 
 MIDDLEWARE = [
