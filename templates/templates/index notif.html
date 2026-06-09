@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link rel="stylesheet" href="style notif.css">
+</head>
+<body>
+    <header class="page-header">
+        <div class="header-left">
+            <span class="header-icon">🔔</span>
+            <h1>Notifications</h1>
+        </div>
+        <button class="btn-mark-read">Tout marquer<br>comme lu</button>
+    </header>
+
+    <main class="container">
+        <!-- SECTION AUJOURD'HUI -->
+        <section class="notif-section">
+            <div class="section-title">
+                <h2>Aujourd'hui</h2>
+                <span class="title-line"></span>
+            </div>
+
+            <div class="notif-list">
+                <!-- NOTIF 1 -->
+                <div class="notif-card unread">
+                    <div class="notif-icon bg-yellow-light">
+                        <span>🤝</span>
+                    </div>
+                    <div class="notif-content">
+                        <div class="notif-top">
+                            <h3>Nouvelle demande de mentorat</h3>
+                            <span class="notif-time">Il y a 2h</span>
+                        </div>
+                        <p class="notif-text">Kofi Mensah souhaite être guidé en Administration Réseau</p>
+                    </div>
+                </div>
+
+                <!-- NOTIF 2 -->
+                <div class="notif-card unread">
+                    <div class="notif-icon bg-gray-light">
+                        <span>💬</span>
+                    </div>
+                    <div class="notif-content">
+                        <div class="notif-top">
+                            <h3>Nouveau message de Kouassi Arnaud</h3>
+                            <span class="notif-time">Il y a 3h</span>
+                        </div>
+                        <p class="notif-text">«Ok je serai disponible demain à 16h»</p>
+                    </div>
+                </div>
+
+                <!-- NOTIF 3 -->
+                <div class="notif-card">
+                    <div class="notif-icon bg-blue-light">
+                        <span>🔗</span>
+                    </div>
+                    <div class="notif-content">
+                        <div class="notif-top">
+                            <h3>Match suggéré</h3>
+                            <span class="notif-time">Il y a 5h</span>
+                        </div>
+                        <p class="notif-text">Sènan Koffi correspond à 74% de tes besoins en graphes</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION CETTE SEMAINE -->
+        <section class="notif-section">
+            <div class="section-title">
+                <h2>Cette semaine</h2>
+                <span class="title-line"></span>
+            </div>
+
+            <div class="notif-list">
+                <!-- NOTIF 4 -->
+                <div class="notif-card">
+                    <div class="notif-icon bg-white">
+                        <span>✅</span>
+                    </div>
+                    <div class="notif-content">
+                        <div class="notif-top">
+                            <h3>Profil complété à 80%</h3>
+                            <span class="notif-time">Lundi</span>
+                        </div>
+                        <p class="notif-text">Ajoute ta photo de profil pour atteindre 100%</p>
+                    </div>
+                </div>
+
+                <!-- NOTIF 5 -->
+                <div class="notif-card">
+                    <div class="notif-icon bg-white">
+                        <span>🎉</span>
+                    </div>
+                    <div class="notif-content">
+                        <div class="notif-top">
+                            <h3>Bienvenue sur MentorLink !</h3>
+                            <span class="notif-time">Lundi</span>
+                        </div>
+                        <p class="notif-text">Ton compte a été créé avec succès</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+<script>
+// JS minimal pour "Tout marquer comme lu"
+document.querySelector('.btn-mark-read').addEventListener('click', () => {
+    document.querySelectorAll('.notif-card.unread').forEach(card => {
+        card.classList.remove('unread');
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Matches</title>
+    <link rel="stylesheet" href="style match.css">
+</head>
+<body>
+    <header class="page-header">
+        <span class="header-icon">🔗</span>
+        <h1>Mes Matches</h1>
+    </header>
+
+    <main class="container">
+        <!-- STATS DU HAUT -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon icon-blue">🔗</div>
+                <div class="stat-info">
+                    <div class="stat-number">--</div>
+                    <div class="stat-label">Matches actifs</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon icon-orange">⏳</div>
+                <div class="stat-info">
+                    <div class="stat-number">--</div>
+                    <div class="stat-label">En attente</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOC MATCHES SUGGERES -->
+        <section class="card">
+            <div class="card-title">
+                <span class="title-icon">🎯</span>
+                <h2>Matches suggérés par l'algorithme</h2>
+            </div>
+
+            <div class="match-list">
+                <!-- MATCH 1 -->
+                <div class="match-item">
+                    <div class="match-left">
+                        <div class="avatar avatar-blue">U</div>
+                        <div class="match-details">
+                            <div class="match-name">Tu as demandé ces informations : Nom — Mentor</div>
+                            <div class="match-desc">Tu as demandé ces informations : Matière • Niveau • Format • Disponible Jours</div>
+                        </div>
+                    </div>
+                    <div class="match-right">
+                        <span class="match-tag tag-green">--% Compatibilité</span>
+                        <div class="match-actions">
+                            <button class="btn-accept">Accepter</button>
+                            <button class="btn-ignore">Ignorer</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MATCH 2 -->
+                <div class="match-item">
+                    <div class="match-left">
+                        <div class="avatar avatar-purple">U</div>
+                        <div class="match-details">
+                            <div class="match-name">Tu as demandé ces informations : Nom — Mentorée</div>
+                            <div class="match-desc">Tu as demandé ces informations : Matière • Niveau • Format • Disponible Jours</div>
+                        </div>
+                    </div>
+                    <div class="match-right">
+                        <span class="match-tag tag-green">--% Compatibilité</span>
+                        <div class="match-actions">
+                            <button class="btn-accept">Accepter</button>
+                            <button class="btn-ignore">Ignorer</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MATCH 3 -->
+                <div class="match-item match-selected">
+                    <div class="match-left">
+                        <div class="avatar avatar-orange">U</div>
+                        <div class="match-details">
+                            <div class="match-name">Tu as demandé ces informations : Nom — Mentor</div>
+                            <div class="match-desc">Tu as demandé ces informations : Matière • Niveau • Format • Disponible Jours</div>
+                        </div>
+                    </div>
+                    <div class="match-right">
+                        <span class="match-tag tag-orange">--% Compatibilité</span>
+                        <div class="match-actions">
+                            <button class="btn-accept">Accepter</button>
+                            <button class="btn-ignore">Ignorer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

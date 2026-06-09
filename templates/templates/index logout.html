@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Déconnexion - MentorLink</title>
+    <link rel="stylesheet" href="style logout.css">
+</head>
+<body>
+    <!-- CONTENU DE LA PAGE EN ARRIERE-PLAN POUR L'EXEMPLE -->
+    <div class="fake-background">
+        <div class="fake-sidebar"></div>
+        <div class="fake-content">
+            <div class="fake-card"></div>
+            <div class="fake-card"></div>
+            <div class="fake-card"></div>
+        </div>
+    </div>
+
+    <!-- MODALE DECONNEXION -->
+    <div class="modal-overlay" id="logout-modal">
+        <div class="modal">
+            <div class="modal-icon">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                    <rect x="10" y="6" width="28" height="36" rx="2" fill="#A16207"/>
+                    <rect x="13" y="14" width="22" height="8" rx="1" stroke="#78350F" stroke-width="1.5"/>
+                    <rect x="13" y="26" width="22" height="8" rx="1" stroke="#78350F" stroke-width="1.5"/>
+                    <circle cx="32" cy="20" r="1.5" fill="#FBBF24"/>
+                </svg>
+            </div>
+            
+            <h2 class="modal-title">Déconnexion</h2>
+            
+            <p class="modal-text">Es-tu sûr de vouloir te déconnecter de MentorLink ?</p>
+            
+            <div class="modal-actions">
+                <button class="btn btn-cancel" id="btn-cancel">Annuler</button>
+                <button class="btn btn-logout" id="btn-logout">Se déconnecter</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+// JS juste pour fermer la modale en démo
+document.getElementById('btn-cancel').addEventListener('click', () => {
+    document.getElementById('logout-modal').style.display = 'none';
+});
+
+document.getElementById('btn-logout').addEventListener('click', () => {
+    // Ici tu mets ta logique de déconnexion
+    console.log('Déconnexion...');
+    document.getElementById('logout-modal').style.display = 'none';
+});
+
+// Fermer au clic sur l'overlay
+document.getElementById('logout-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'logout-modal') {
+        document.getElementById('logout-modal').style.display = 'none';
+    }
+});
+</script>
+</body>
+</html>
