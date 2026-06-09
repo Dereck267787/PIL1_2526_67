@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    <link rel="stylesheet" href="style mess.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- LISTE DES CONVERSATIONS -->
+        <aside class="conversations" id="conversations-panel">
+            <div class="panel-header">
+                <h1><span class="header-icon">💬</span> Messages</h1>
+            </div>
+            
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Rechercher une conversation..." id="search-input">
+            </div>
+
+            <div class="convo-list">
+                <!-- CONVO 1 - ACTIVE -->
+                <div class="convo-item active" data-user="user1">
+                    <div class="avatar avatar-blue">K</div>
+                    <div class="convo-content">
+                        <div class="convo-top">
+                            <div class="convo-name">Tu as demandé ces informations : Nom</div>
+                            <div class="convo-time">14:22</div>
+                        </div>
+                        <div class="convo-bottom">
+                            <div class="convo-preview">Tu as demandé ces informations : Dernier message...</div>
+                            <span class="badge">2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONVO 2 -->
+                <div class="convo-item" data-user="user2">
+                    <div class="avatar avatar-green">M</div>
+                    <div class="convo-content">
+                        <div class="convo-top">
+                            <div class="convo-name">Tu as demandé ces informations : Nom</div>
+                            <div class="convo-time">Hier</div>
+                        </div>
+                        <div class="convo-bottom">
+                            <div class="convo-preview">Tu as demandé ces informations : Dernier message...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONVO 3 -->
+                <div class="convo-item" data-user="user3">
+                    <div class="avatar avatar-purple">F</div>
+                    <div class="convo-content">
+                        <div class="convo-top">
+                            <div class="convo-name">Tu as demandé ces informations : Nom</div>
+                            <div class="convo-time">Hier</div>
+                        </div>
+                        <div class="convo-bottom">
+                            <div class="convo-preview">Tu as demandé ces informations : Dernier message...</div>
+                            <span class="badge">1</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- FENETRE DE CHAT -->
+        <main class="chat" id="chat-panel">
+            <div class="chat-header">
+                <button class="btn-back" id="btn-back">←</button>
+                <div class="chat-user">
+                    <div class="avatar avatar-blue">K</div>
+                    <div class="user-details">
+                        <div class="user-name" id="chat-user-name">Tu as demandé ces informations : Nom</div>
+                        <div class="user-status"><span class="status-dot"></span> En ligne</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="messages-container">
+                <!-- MESSAGE REÇU -->
+                <div class="msg-row">
+                    <div class="msg msg-received">
+                        <p>Tu as demandé ces informations : Message reçu</p>
+                        <span class="msg-time">14:10</span>
+                    </div>
+                </div>
+
+                <!-- MESSAGE ENVOYÉ -->
+                <div class="msg-row msg-row-sent">
+                    <div class="msg msg-sent">
+                        <p>Tu as demandé ces informations : Message envoyé</p>
+                        <span class="msg-time">14:15</span>
+                    </div>
+                </div>
+
+                <!-- MESSAGE REÇU -->
+                <div class="msg-row">
+                    <div class="msg msg-received">
+                        <p>Tu as demandé ces informations : Autre message reçu</p>
+                        <span class="msg-time">14:18</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <input 
+                    type="text" 
+                    class="chat-input" 
+                    id="message-input"
+                    placeholder="Écris un message..."
+                >
+                <button class="btn-send" id="btn-send">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </main>
+    </div>
+
+<script>
+// JS minimal juste pour la navigation front, pas de messagerie
+const convoItems = document.querySelectorAll('.convo-item');
+const chatPanel = document.getElementById('chat-panel');
+const convoPanel = document.getElementById('conversations-panel');
+const btnBack = document.getElementById('btn-back');
+
+function isMobile() {
+    return window.innerWidth <= 768;
+}
+
+convoItems.forEach(item => {
+    item.addEventListener('click', () => {
+        convoItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        
+        // Change le nom dans le header du chat
+        const userName = item.querySelector('.convo-name').textContent;
+        document.getElementById('chat-user-name').textContent = userName;
+        document.querySelector('.chat-user .avatar').textContent = userName.charAt(0);
+        
+        if (isMobile()) {
+            convoPanel.style.display = 'none';
+            chatPanel.style.display = 'flex';
+        }
+    });
+});
+
+btnBack.addEventListener('click', () => {
+    if (isMobile()) {
+        chatPanel.style.display = 'none';
+        convoPanel.style.display = 'flex';
+    }
+});
+
+// Affichage par défaut desktop
+if (!isMobile()) {
+    chatPanel.style.display = 'flex';
+}
+</script>
+</body>
+</html>

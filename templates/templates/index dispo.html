@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disponibilités</title>
+    <link rel="stylesheet" href="style dispo.css">
+</head>
+<body>
+    <main class="container">
+        <section class="card">
+            <div class="card-header">
+                <span class="header-icon">📅</span>
+                <h1>Grille horaire hebdomadaire</h1>
+            </div>
+            <p class="card-desc">Clique sur un créneau pour le marquer comme disponible (vert)</p>
+
+            <div class="schedule-grid">
+                <div class="day-col">
+                    <div class="day-name">LUN</div>
+                    <button class="slot" data-day="lun" data-period="matin">Matin</button>
+                    <button class="slot" data-day="lun" data-period="apres-midi">Après-<br>midi</button>
+                    <button class="slot" data-day="lun" data-period="soir">Soir</button>
+                </div>
+                <div class="day-col">
+                    <div class="day-name">MAR</div>
+                    <button class="slot" data-day="mar" data-period="matin">Matin</button>
+                    <button class="slot" data-day="mar" data-period="apres-midi">Après-<br>midi</button>
+                    <button class="slot" data-day="mar" data-period="soir">Soir</button>
+                </div>
+                <div class="day-col">
+                    <div class="day-name">MER</div>
+                    <button class="slot" data-day="mer" data-period="matin">Matin</button>
+                    <button class="slot" data-day="mer" data-period="apres-midi">Après-<br>midi</button>
+                    <button class="slot" data-day="mer" data-period="soir">Soir</button>
+                </div>
+                <div class="day-col">
+                    <div class="day-name">JEU</div>
+                    <button class="slot" data-day="jeu" data-period="matin">Matin</button>
+                    <button class="slot" data-day="jeu" data-period="apres-midi">Après-<br>midi</button>
+                    <button class="slot" data-day="jeu" data-period="soir">Soir</button>
+                </div>
+                <div class="day-col">
+                    <div class="day-name">VEN</div>
+                    <button class="slot" data-day="ven" data-period="matin">Matin</button>
+                    <button class="slot" data-day="ven" data-period="apres-midi">Après-<br>midi</button>
+                    <button class="slot" data-day="ven" data-period="soir">Soir</button>
+                </div>
+                <div class="day-col">
+                    <div class="day-name">SAM</div>
+                    <button class="slot" data-day="sam" data-period="matin">Matin</button>
+                    <button class="slot" data-day="sam" data-period="apres-midi">Après-<br>midi</button>
+                    <button class="slot" data-day="sam" data-period="soir">Soir</button>
+                </div>
+                <div class="day-col">
+                    <div class="day-name">DIM</div>
+                    <button class="slot" data-day="dim" data-period="matin">Matin</button>
+                    <button class="slot" data-day="dim" data-period="apres-midi">Après-<br>midi</button>
+                    <button class="slot" data-day="dim" data-period="soir">Soir</button>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="preferences">
+                <div class="pref-title">
+                    <span class="pref-icon">⚙️</span>
+                    <h2>Préférences</h2>
+                </div>
+
+                <div class="field">
+                    <label for="format">FORMAT DE PRÉFÉRENCE</label>
+                    <select id="format" class="select-field select-main">
+                        <option value="" selected disabled>Tu as demandé ces informations : choisis un format</option>
+                        <option value="ligne">En ligne</option>
+                        <option value="presentiel">Présentiel</option>
+                        <option value="hybride">Hybride</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="duree">DURÉE DE SÉANCE PRÉFÉRÉE</label>
+                    <select id="duree" class="select-field">
+                        <option value="" selected disabled>Tu as demandé ces informations : choisis une durée</option>
+                        <option value="30min">30 minutes</option>
+                        <option value="1h">1 heure</option>
+                        <option value="1h30">1h30</option>
+                        <option value="2h">2 heures</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+    </main>
+
+<script>
+// JS pour rendre les créneaux cliquables
+document.querySelectorAll('.slot').forEach(slot => {
+    slot.addEventListener('click', () => {
+        slot.classList.toggle('active');
+    });
+});
+</script>
+</body>
+</html>
