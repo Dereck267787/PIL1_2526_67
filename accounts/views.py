@@ -31,7 +31,16 @@ def register_view(request):
 
         user = User.objects.create_user(username=username, email=email, password=password)
         CompteUtilisateur.objects.create(user=user, role=role)
-        Profil.objects.create(user=user)
+        
+        # === LE CORRECTIF EST LÀ ===
+        Profil.objects.create(
+            user=user,
+            filiere="À définir",
+            niveau="",
+            competences="",
+            lacunes=""
+        )
+        # ===========================
         
         login(request, user)
         return redirect('accounts:dashboard') 
@@ -85,11 +94,6 @@ def dashboard_view(request):
         'total_messages': nb_messages_non_lus,
     }
     return render(request, 'accounts/dashboard.html', context)
-
-
-@login_required(login_url='/login/')
-def profil_view(request):
-    return render(request, 'accounts/index_profil.html')
 
 
 @login_required(login_url='/login/')
