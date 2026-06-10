@@ -16,8 +16,11 @@ class Profil(models.Model):
     
     # On relie ce profil au compte utilisateur classique (celui qui a le mot de passe)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    filiere = models.CharField(max_length=100, help_text="Ex: Génie Logiciel, IA...")
-    niveau = models.CharField(max_length=2, choices=NIVEAUX)
+
+    photo = models.ImageField(upload_to='avatars/', null=True, blank=True)
+    filiere = models.CharField(max_length=100, help_text="Ex: Génie Logiciel, IA...", blank=True, null=True)
+    niveau = models.CharField(max_length=2, choices=NIVEAUX, blank=True, null=True)
+
     competences = models.TextField(help_text="Matières maîtrisées (séparées par des virgules)")
     lacunes = models.TextField(help_text="Matières où l'étudiant a besoin d'aide")
 

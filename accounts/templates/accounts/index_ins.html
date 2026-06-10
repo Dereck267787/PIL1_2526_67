@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - MentorLink</title>
+    <link rel="stylesheet" href="{% static 'accounts/style3.css' %}">
+</head>
+<body>
+
+    <nav style="position: absolute; top: 0; left: 0; width: 100%; background-color: #1e293b; padding: 15px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); box-sizing: border-box; z-index: 1000;">
+        <a href="/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">🏠 Accueil</a>
+        <a href="/profil/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">👤 Mon Profil</a>
+        <a href="/matching/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">🔍 Matches</a>
+        <a href="/offres/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">📋 Offres</a>
+        <a href="/chat/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">💬 Messages</a>
+    </nav>
+
+    <div style="margin-top: 80px;" class="form-container">
+        <form class="contact-form" method="POST" action="">
+            {% csrf_token %} 
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input type="text" id="username" name="username" placeholder="KIKI_CISSE" required>
+                </div>
+            </div>
+
+            <div class="form-row-single">
+                <div class="form-group-half">
+                    <label for="email">Adresse Email</label>
+                    <input type="email" id="email" name="email" placeholder="kiki@exemple.com" required>
+                </div>
+            </div>
+
+            <div class="form-row-single">
+                <div class="form-group-half">
+                    <label for="role">Je suis ici pour :</label>
+                    <select id="role" name="role" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-family: inherit;">
+                        <option value="mentore">Trouver un mentor</option>
+                        <option value="mentor">Devenir mentor</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" placeholder="Minimum 8 caractères" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirmer le mot de passe</label>
+                    <input type="password" id="confirm-password" name="confirm_password" placeholder="Retape ton mot de passe" required>
+                </div>
+            </div>
+
+            <div style="margin-top: 5px; margin-bottom: 20px; color: white; font-size: 14px; display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" id="afficherMdp" onclick="basculerMotDePasse()" style="cursor: pointer;">
+                <label for="afficherMdp" style="cursor: pointer;">Afficher les mots de passe</label>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                continuer
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </form>
+    </div>
+
+    <script>
+        function basculerMotDePasse() {
+            var champ1 = document.getElementById("password");
+            var champ2 = document.getElementById("confirm-password");
+            
+            if (champ1.type === "password") {
+                champ1.type = "text";
+                champ2.type = "text";
+            } else {
+                champ1.type = "password";
+                champ2.type = "password";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offres & Demandes - MentorLink</title>
+    <link rel="stylesheet" href="{% static 'accounts/style_offre.css' %}">
+</head>
+<body>
+
+    <nav style="position: absolute; top: 0; left: 0; width: 100%; background-color: #1e293b; padding: 15px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); box-sizing: border-box; z-index: 1000;">
+        <a href="{% url 'accounts:dashboard' %}" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">🏠 Accueil</a>
+        <a href="/profil/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">👤 Mon Profil</a>
+        <a href="/matching/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">🔍 Matches</a>
+        <a href="/offres/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">📋 Offres</a>
+        <a href="{% url 'messaging:boite_reception' %}" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">💬 Messages</a>
+    </nav>
+
+    <div style="margin-top: 80px;">
+        <header class="page-header">
+            <div class="header-left">
+                <span class="header-icon">📋</span>
+                <h1>Offres &<br>Demandes</h1>
+            </div>
+            <button class="btn-new" onclick="document.getElementById('form-section').style.display='block'">+ Nouvelle offre<br>/ demande</button>
+        </header>
+
+        <main class="container">
+            <section class="card form-card" id="form-section" style="display: none;">
+                <div class="card-title">
+                    <h2>Créer une offre ou demande</h2>
+                </div>
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="creer_annonce" value="1">
+
+                    <div class="field">
+                        <label for="type">Type</label>
+                        <select name="type" id="type" required>
+                            <option value="OFFRE">Offre d'aide (Je suis mentor)</option>
+                            <option value="DEMANDE">Demande d'aide (Je cherche un mentor)</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="matiere">Matière concernée</label>
+                        <select name="matiere" id="matiere" required>
+                            <option value="">-- Sélectionnez une matière --</option>
+                            <option value="Langage C">Langage C</option>
+                            <option value="Python">Python</option>
+                            <option value="html & css">html & css</option>
+                            <option value="Equation differentiel">Equation differentiel</option>
+                            <option value="TEEO">TEEO</option>
+                            <option value="Recherche operationnel">Recherche operationnel</option>
+                            <option value="Analyse et application">Analyse et application</option>
+                            <option value="Theorie des graphes">Theorie des graphes</option>
+                            <option value="Algèbre linéaire et application">Algèbre linéaire et application</option>
+                            <option value="Outils de base en informatique">Outils de base en informatique</option>
+                            <option value="Statistique inférentielle">Statistique inférentielle</option>
+                            <option value="Anglais">Anglais</option>
+                            <option value="SGBD et langage SQL">SGBD et langage SQL</option>
+                            <option value="Administration des réseaux sous Windows et Linux">Administration des réseaux sous Windows et Linux</option>
+                            <option value="Suites et séries numériques">Suites et séries numériques</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="dispo">Disponibilités</label>
+                        <input type="text" name="dispo" id="dispo" placeholder="Ex: Lundi & Mercredi soir" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="format">Format du cours</label>
+                        <select name="format" id="format" required>
+                            <option value="EN_LIGNE">En ligne</option>
+                            <option value="PRESENTIEL">Présentiel</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Publier</button>
+                </form>
+            </section>
+
+            <nav class="tabs">
+                <button class="tab active">Toutes les annonces</button>
+            </nav>
+
+            <div class="offers-list">
+                {% for annonce in annonces %}
+                    <article class="offer-card">
+                        <div class="offer-top">
+                            <div class="offer-info">
+                                <h3 class="offer-title">{{ annonce.get_type_annonce_display }} - {{ annonce.matiere }}</h3>
+                                <p class="offer-author">par {{ annonce.auteur.user.username }} • {{ annonce.auteur.get_niveau_display }}</p>
+                            </div>
+                            <span class="status-tag status-open">Nouveau</span>
+                        </div>
+                        
+                        <div class="tags">
+                            <span class="tag tag-blue">{{ annonce.matiere }}</span>
+                        </div>
+                        
+                        <div class="offer-bottom">
+                            <div class="offer-meta">
+                                <span class="meta-icon">📅</span>
+                                <span class="meta-text">{{ annonce.disponibilites }} • {{ annonce.get_format_cours_display }}</span>
+                            </div>
+                            
+                            {% if annonce.auteur.user != request.user %}
+                                <form method="POST" style="margin:0;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="repondre_annonce" value="1">
+                                    <input type="hidden" name="annonce_id" value="{{ annonce.id }}">
+                                    <button type="submit" class="btn-repondre">Répondre</button>
+                                </form>
+                            {% else %}
+                                <span style="color: #64748b; font-size: 0.9rem;">C'est votre annonce</span>
+                            {% endif %}
+                        </div>
+                    </article>
+                {% empty %}
+                    <p style="text-align: center; color: #64748b; margin-top: 30px;">Aucune annonce publiée pour le moment.</p>
+                {% endfor %}
+            </div>
+        </main>
+    </div>
+</body>
+</html>

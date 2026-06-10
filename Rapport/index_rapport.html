@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IFRI MentorLink — Rapport de Projet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:    #1A3A5C;
+      --accent:  #2563EB;
+      --light:   #F5F7FA;
+      --white:   #FFFFFF;
+      --gray:    #6B7280;
+      --border:  #DDE3EC;
+      --radius:  12px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light);
+      color: #1F2937;
+      line-height: 1.7;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--blue);
+      color: var(--white);
+      padding: 60px 40px 50px;
+      text-align: center;
+      border-bottom: 5px solid var(--accent);
+    }
+
+    header .label {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      margin-bottom: 10px;
+    }
+
+    header p.subtitle {
+      color: #A8BFDA;
+      font-size: 1rem;
+      margin-bottom: 28px;
+    }
+
+    .meta-bar {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 10px;
+    }
+
+    .meta-bar span {
+      font-size: 0.88rem;
+      color: #C5D5E8;
+    }
+
+    .meta-bar strong { color: var(--white); }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 860px;
+      margin: 50px auto;
+      padding: 0 20px 80px;
+    }
+
+    /* ── SECTION CARD ── */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 36px 40px;
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .card-label {
+      position: absolute;
+      top: -14px;
+      left: 32px;
+      background: var(--accent);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+    }
+
+    .card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--blue);
+      margin-bottom: 14px;
+    }
+
+    .card p, .card li {
+      color: #374151;
+      font-size: 0.97rem;
+    }
+
+    .card ul {
+      padding-left: 20px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .card ul li {
+      margin-bottom: 8px;
+    }
+
+    /* ── HIGHLIGHT BOX ── */
+    .highlight {
+      background: #FFF4EC;
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 16px;
+      font-size: 0.93rem;
+      color: #1E40AF;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 0.82rem;
+      color: var(--gray);
+      border-top: 1px solid var(--border);
+    }
+
+    footer strong { color: var(--blue); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="label">Projet Intégrateur · IFRI / UAC</div>
+  <h1>IFRI MentorLink</h1>
+  <p class="subtitle">Rapport de projet — [Année académique 2025-2026]</p>
+  <div class="meta-bar">
+    <span>Matière : <strong>Projet Intégrateur</strong></span>
+    <span>Encadreurs : <strong>M.Armand ACROMBESSI <br/> Mme.Marlyse GAHOU <br/> M.Ratheil HOUTONDJI
+    </strong></span>
+    <span>Date limite: <strong>Mercredi, 10 juin 2026</strong></span>
+  </div>
+</header>
+
+<main>
+
+  <div class="card">
+    <div class="card-label">01 · Présentation</div>
+    <h2>À propos du projet</h2>
+    <p>
+      Le projet de cette année consiste à réaliser une application web qui met en relation les
+étudiants de l’IFRI souhaitant bénéficier ou offrir du mentorat académique et
+professionnel. Dénommé IFRI_MentorLink, chaque utilisateur crée un profil
+(compétences, disponibilités, filière, etc.) et peut publier ou rechercher des offres /
+demandes de mentorat. Un algorithme de matching basé sur la compatibilité des
+compétences, la proximité des filières et la compatibilité horaire propose
+automatiquement les combinaisons mentor-mentoré les plus pertinentes, tandis qu’une
+messagerie intégrée permet d’organiser et de suivre les sessions de mentorat.
+    </p>
+    <div class="highlight">
+      💡 Construire le futur de l'entraide étudiante
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">02 · Équipe</div>
+    <h2>Membres du groupe</h2>
+    <p>
+      Notre équipe est composée de 7 membres, chacun apportant des compétences et des perspectives :
+    </p>
+    <ul>
+        <li><strong>FATOUMBI Dereck</strong> (CHEF DU GROUPE & Répartition des tâches, mis en place la configuration Django et à egalement aidé  Jédielle)</li>
+        <li><strong>SALIFOU Tarouwere Abdel-Azim</strong> (Responsable du frontend)</li>
+        <li><strong> BAMIGBOLA Fidele</strong> (Connecte l'API à la partie messagerie)</li>
+        <li><strong>ZANKPO fréjus</strong> (Responsable de la base de données, fusionneur du projet et à egalement aidé Sylvain et Fidèl à faire leur tache)</li>
+        <li><strong>HOUEZO Sylvain</strong> (Crée l'API qui connecte les étudiants aux mentors compatibles - matching)</li>
+        <li><strong>AHOUIDJI Jédielle</strong> (Back-end Authentication & Comptes)</li>
+        <li><strong>ADJAKOSSA Daniel Fréjus (Paticipation à la gestion du frontend)</strong></li>
+    </ul>
+  </div>
+       
+  <div class="card">
+    <div class="card-label">03 · Déroulement</div>
+    <h2>Comment s'est passé le projet ?</h2>
+    <p>
+      Notre cohésion de groupe s'est renforcée au fil du projet,
+      et malgré les défis, nous avons réussi à créer une dynamique de travail efficace.
+      Nous sommes fiers de ce que nous avons accompli ensemble et impatients de présenter notre projet
+      à la communauté IFRI. 
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="card-label">04 · Difficultés</div>
+    <h2>Difficultés rencontrées</h2>
+    <p>
+      Au début c'était très compliqué surtout pour les activités de Git, on avait 
+      un immense problème pour pouvoir connecter les branches de chaque personne au dépôt 
+      GitHub et à faire des commits. Ensuite, pour pouvoir relier le frontend et le backend c'était 
+      un peu fatiguant. Le plus souvent on a eu des moments de stress où on se demandait si notre performance 
+      était maximale.
+    </p>
+    <div class="highlight">
+      🔧 Grâce aux documents que le professeur nous a fournis
+       au préalable nous avons pu supporter ces obstacles
+        en lisant et relisant les parties d'ombre.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">05 · Appréhensions</div>
+    <h2>Nos craintes & ressentis</h2>
+    <p>
+      Au début la plupart d'entre nous n'avait presque aucune expérience donc il y avait ce stress de 
+      se demander si on pouvait finir à temps
+       surtout que c'est la première fois qu'on se connaît. Mais après une élection du chef de groupe et 
+       un temps passé à essayer 
+      de se comprendre et de prendre en compte les enjeux, nous avons surmonté cette peur et on s'est lancé.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="card-label">06 · Bilan</div>
+    <h2>Ce qu'on retient</h2>
+    <p>
+      En conclusion on a commencé ce projet très anxieux et
+       un peu perdu mais après un temps de discussion nous avons pu régler nos problèmes 
+      et nous sommes ravis d'avoir fait partie d'un tel projet c'est juste magnifique.
+    </p>
+    <div class="highlight">
+      Petit à petit l'oiseau fait son nid.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">07 · Conception</div>
+    <h2>Architecture et Base de données</h2>
+    <p>
+      L'application a été conçue en respectant une architecture de type Client-Serveur et modulaire, conformément au cahier des charges. Nous avons utilisé le pattern MVT (Modèle-Vue-Template) offert par notre framework :
+    </p>
+    <ul>
+      <li><strong>Frontend :</strong> HTML5, CSS3, JavaScript pour une interface dynamique et responsive.</li>
+      <li><strong>Backend :</strong> Python propulsé par le framework Django.</li>
+      <li><strong>Base de données :</strong> SGBD relationnel MySQL pour garantir l'intégrité des données.</li>
+    </ul>
+    <p style="margin-top: 15px;"><strong>Structure de la Base de Données :</strong></p>
+    <ul>
+      <li><code>User / CompteUtilisateur</code> : Gestion de l'authentification sécurisée (mots de passe hashés) et du rôle (Mentor ou Mentoré).</li>
+      <li><code>Profil</code> : Extension de l'utilisateur stockant la photo de profil, la filière, le niveau d'étude, les compétences et les lacunes.</li>
+      <li><code>Annonce</code> : Centralise les offres et demandes avec la matière, le format (en ligne, présentiel) et les disponibilités horaires.</li>
+      <li><code>Matching</code> : L'algorithme central qui gère les candidatures entre étudiants avec un système d'état (En attente, Accepté, Refusé).</li>
+      <li><code>Message</code> : Gère l'historique des discussions pour la messagerie instantanée intégrée.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-label">08 · Déploiement</div>
+    <h2>Instructions de déploiement</h2>
+    <p>
+      Pour exécuter le projet IFRI MentorLink sur une machine locale, suivez ces étapes :
+    </p>
+    <ul>
+      <li><strong>1. Prérequis :</strong> Avoir Python 3.x, MySQL Server et Git installés sur la machine.</li>
+      <li><strong>2. Cloner le dépôt :</strong> Récupérer le code source depuis GitHub avec la commande <code>git clone [URL_DU_DEPOT_GITHUB]</code>.</li>
+      <li><strong>3. Environnement virtuel :</strong> Créer un environnement isolé (<code>python -m venv .venv</code>) et l'activer.</li>
+      <li><strong>4. Dépendances :</strong> Installer les bibliothèques requises (Django, Pillow, mysqlclient) via la commande <code>pip install -r requirements.txt</code>.</li>
+      <li><strong>5. Base de données :</strong> Créer une base de données MySQL locale et configurer les identifiants de connexion dans le fichier <code>mentorlink/settings.py</code>.</li>
+      <li><strong>6. Migrations MySQL :</strong> Préparer et appliquer la base de données avec <code>python manage.py makemigrations</code> puis <code>python manage.py migrate</code>.</li>
+      <li><strong>7. Lancement du serveur :</strong> Démarrer le serveur de développement avec <code>python manage.py runserver</code>. L'application sera disponible sur <code>http://127.0.0.1:8000/</code>.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-label">09 · Manuel d'utilisation</div>
+    <h2>Comment utiliser MentorLink ?</h2>
+    <p>L'expérience utilisateur a été pensée pour être intuitive :</p>
+    <ul>
+      <li><strong>Inscription :</strong> L'étudiant crée un compte en définissant son rôle principal. L'unicité de l'email est vérifiée.</li>
+      <li><strong>Personnaliser son Profil :</strong> Rendez-vous dans l'onglet "Mon Profil". Cliquez sur l'icône du crayon (✏️) pour uploader une photo, et complétez votre filière et niveau d'études. Sauvegardez via le bouton "Enregistrer".</li>
+      <li><strong>Définir ses Compétences :</strong> L'étudiant renseigne les matières qu'il maîtrise et ses lacunes dans l'onglet dédié.</li>
+      <li><strong>Créer une annonce :</strong> Allez dans "Offres", cliquez sur le bouton "+ Nouvelle offre / demande", remplissez le formulaire dynamique et cliquez sur publier.</li>
+      <li><strong>Trouver un match :</strong> Depuis l'onglet "Offres", parcourez les annonces de la communauté et cliquez sur le bouton "Répondre" pour postuler.</li>
+      <li><strong>Accepter un mentorat :</strong> Vérifiez vos "Notifications". Vous y verrez les demandes reçues. Cliquez sur "✅ Accepter" pour valider la connexion avec l'étudiant.</li>
+      <li><strong>Messagerie :</strong> Une fois le match accepté, allez dans l'onglet "Messages". Le contact apparaîtra dans la liste, débloquant ainsi le chat pour organiser vos sessions d'études.</li>
+    </ul>
+
+    <div class="highlight">
+      🚀 Vous êtes maintenant prêt à partager vos connaissances ou à recevoir de l'aide !
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>IFRI MentorLink · <strong>Institut de Formation et de Recherche en Informatique</strong> · UAC, Bénin</p>
+  <p style="margin-top:6px">[Année académique 2025-2026] — Projet Intégrateur</p>
+  <p>Le compt Admis a pour Nom:admi, Adresse_email:Pas d'adresse, Mots de passe: PIL1_2526_67</p>
+</footer>
+
+
+
+</body>
+</html>

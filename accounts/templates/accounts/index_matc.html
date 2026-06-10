@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Matches - MentorLink</title>
+    <link rel="stylesheet" href="{% static 'accounts/style_match.css' %}">
+</head>
+<body>
+
+    <nav style="position: absolute; top: 0; left: 0; width: 100%; background-color: #1e293b; padding: 15px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); box-sizing: border-box; z-index: 1000;">
+        <a href="{% url 'accounts:dashboard' %}" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">🏠 Accueil</a>
+        <a href="/profil/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">👤 Mon Profil</a>
+        <a href="/matching/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">🔍 Matches</a>
+        <a href="/offres/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">📋 Offres</a>
+        <a href="{% url 'messaging:boite_reception' %}" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">💬 Messages</a>
+    </nav>
+
+    <div style="margin-top: 80px;">
+        <header class="page-header">
+            <span class="header-icon">🔗</span>
+            <h1>Mes Matches</h1>
+        </header>
+
+        <main class="container">
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon icon-blue">🔗</div>
+                    <div class="stat-info">
+                        <div class="stat-number">{{ matches_actifs.count }}</div>
+                        <div class="stat-label">Matches actifs</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-orange">⏳</div>
+                    <div class="stat-info">
+                        <div class="stat-number">{{ matches_en_attente.count }}</div>
+                        <div class="stat-label">En attente</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="card-title">
+                    <span class="title-icon">🎯</span>
+                    <h2>Membres de la communauté MentorLink</h2>
+                </div>
+
+                <div class="match-list">
+                    {% for profil in suggestions %}
+                        <div class="match-item">
+                            <div class="match-left">
+                                <div class="avatar avatar-blue">{{ profil.user.username|slice:":1"|upper }}</div>
+                                <div class="match-details">
+                                    <div class="match-name">{{ profil.user.username }}</div>
+                                    <div class="match-desc">{{ profil.filiere }} • {{ profil.get_niveau_display }}</div>
+                                </div>
+                            </div>
+                            <div class="match-right">
+                                <span class="match-tag tag-green">Membre IFRI</span>
+                                <div class="match-actions">
+                                    <a href="{% url 'messaging:boite_reception' %}"><button class="btn-accept" style="background: #2563eb;">Discuter</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p style="padding: 20px; text-align: center; color: #64748b;">Aucun autre profil inscrit pour l'instant.</p>
+                    {% endfor %}
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
