@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Déconnexion - MentorLink</title>
+    <link rel="stylesheet" href="{% static 'accounts/style_logout.css' %}">
+</head>
+<body>
+
+    <nav style="position: absolute; top: 0; left: 0; width: 100%; background-color: #1e293b; padding: 15px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); box-sizing: border-box; z-index: 1001;">
+        <a href="/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">🏠 Accueil</a>
+        <a href="/profil/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">👤 Mon Profil</a>
+        <a href="/matching/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">🔍 Matches</a>
+        <a href="/offres/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">📋 Offres</a>
+        <a href="/chat/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">💬 Messages</a>
+    </nav>
+
+    <div class="fake-background" style="margin-top: 50px;">
+        <div class="fake-sidebar"></div>
+        <div class="fake-content">
+            <div class="fake-card"></div>
+            <div class="fake-card"></div>
+            <div class="fake-card"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="logout-modal">
+        <div class="modal">
+            <div class="modal-icon">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                    <rect x="10" y="6" width="28" height="36" rx="2" fill="#A16207"/>
+                    <rect x="13" y="14" width="22" height="8" rx="1" stroke="#78350F" stroke-width="1.5"/>
+                    <rect x="13" y="26" width="22" height="8" rx="1" stroke="#78350F" stroke-width="1.5"/>
+                    <circle cx="32" cy="20" r="1.5" fill="#FBBF24"/>
+                </svg>
+            </div>
+            
+            <h2 class="modal-title">Déconnexion</h2>
+            <p class="modal-text">Es-tu sûr de vouloir te déconnecter de MentorLink ?</p>
+            
+            <div class="modal-actions">
+                <button class="btn btn-cancel" id="btn-cancel" onclick="window.history.back();">Annuler</button>
+                
+                <a href="/logout/" class="btn btn-logout" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">Se déconnecter</a>
+            </div>
+        </div>
+    </div>
+
+<script>
+// Le JS est simplifié car le bouton "Se déconnecter" (le tag <a>) fait maintenant tout le travail 
+// en envoyant l'utilisateur sur la vraie route de déconnexion Django !
+
+// Fermer au clic sur l'overlay (retour à la page précédente)
+document.getElementById('logout-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'logout-modal') {
+        window.history.back();
+    }
+});
+</script>
+</body>
+</html>

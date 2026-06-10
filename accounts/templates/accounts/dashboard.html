@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorLink - Tableau de bord</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'accounts/style_dashboard.css' %}">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-logo">Mentor<span>Link</span></div>
+
+        <div class="user-chip">
+            <div class="chip-avatar">{{ request.user.username|make_list|first|upper }}</div>
+            <div>
+                <div class="chip-name">{{ request.user.username }}</div>
+                <div class="chip-role">Étudiant • IFRI</div>
+            </div>
+        </div>
+
+        <div class="nav-section-label">Principal</div>
+        <a class="nav-item active" href="{% url 'accounts:dashboard' %}">
+            <span class="icon">🏠</span> Accueil
+        </a>
+        <a class="nav-item" href="/profil/">
+            <span class="icon">👤</span> Mon profil
+        </a>
+        <a class="nav-item" href="/competences/">
+            <span class="icon">⚡</span> Mes Compétences
+        </a>
+        <a class="nav-item" href="/dispo/">
+            <span class="icon">📅</span> Mes Disponibilités
+        </a>
+        <a class="nav-item" href="/matching/">
+            <span class="icon">🔗</span> Mes Matches
+        </a>
+
+        <div class="nav-divider"></div>
+        <div class="nav-section-label">Communauté</div>
+        <a class="nav-item" href="/offres/">
+            <span class="icon">📋</span> Offres &amp; Demandes
+        </a>
+        <a class="nav-item" href="{% url 'messaging:boite_reception' %}">
+            <span class="icon">💬</span> Messages
+            <span class="nav-badge">{{ total_messages }}</span>
+        </a>
+        <a class="nav-item" href="/notifications/">
+            <span class="icon">🔔</span> Notifications
+            <span class="nav-badge">0</span>
+        </a>
+
+        <div class="nav-divider"></div>
+        <a class="nav-item danger" href="{% url 'accounts:logout' %}">
+            <span class="icon">🚪</span> Déconnexion
+        </a>
+    </aside>
+
+    <main class="main">
+        <div class="page active" id="page-accueil">
+            <div class="topbar">
+                <h1>👋 Bonjour, {{ request.user.username }}</h1>
+                <div class="topbar-right">
+                    <button class="btn btn-orange">+ Nouvelle offre</button>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">👁️</div>
+                    <div class="stat-info"><h2>0</h2><p>Vues de profil</p></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon teal">👥</div>
+                    <div class="stat-info"><h2>0</h2><p>Demandes reçues</p></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">🔗</div>
+                    <div class="stat-info"><h2>{{ total_matches }}</h2><p>Matches actifs</p></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon red">📅</div>
+                    <div class="stat-info"><h2>0</h2><p>Sessions prévues</p></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🔗 Matches récents</div>
+                <div class="empty-state">
+                    <div class="empty-icon">🤝</div>
+                    <p>Aucun match pour le moment</p>
+                    <a href="/matching/"> 
+                        <button class="btn btn-primary" style="margin-top:14px">Trouver des matches</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📋 Activité récente</div>
+                <div class="empty-state">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Aucune activité récente.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Compétences - MentorLink</title>
+    <link rel="stylesheet" href="{% static 'accounts/style_comp.css' %}">
+    <style>
+        .textarea-skills {
+            width: 100%;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 15px;
+            font-family: inherit;
+            color: #1e293b;
+            outline: none;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+        .textarea-skills:focus { border-color: #3b82f6; background: white; }
+        .btn-save-skills {
+            background: #2563eb; color: white; border: none; padding: 12px 24px;
+            border-radius: 8px; font-weight: 600; cursor: pointer; float: right;
+        }
+        .btn-save-skills:hover { background: #1d4ed8; }
+        .alert-success { background: #d1e7dd; color: #0f5132; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: 500;}
+    </style>
+</head>
+<body>
+
+    <nav style="position: absolute; top: 0; left: 0; width: 100%; background-color: #1e293b; padding: 15px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); box-sizing: border-box; z-index: 1000;">
+        <a href="{% url 'accounts:dashboard' %}" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">🏠 Accueil</a>
+        <a href="/profil/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">👤 Mon Profil</a>
+        <a href="/matching/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">🔍 Matches</a>
+        <a href="/offres/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">📋 Offres</a>
+        <a href="{% url 'messaging:boite_reception' %}" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">💬 Messages</a>
+    </nav>
+
+    <div style="margin-top: 80px; padding-bottom: 50px;">
+        <header class="page-header">
+            <div class="header-left">
+                <span class="header-icon">⚡</span>
+                <h1>Mes Compétences</h1>
+            </div>
+        </header>
+
+        <main class="container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert-success">✓ {{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+                
+                <section class="card">
+                    <div class="card-title">
+                        <span class="icon-green">✅</span>
+                        <h2>POINTS FORTS (CE QUE TU PEUX ENSEIGNER)</h2>
+                    </div>
+                    <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 10px;">Séparez vos matières par des virgules.</p>
+                    <textarea name="competences" rows="3" class="textarea-skills" placeholder="Ex: Python, Algorithmique, Base de données, Réseaux">{{ profil.competences }}</textarea>
+                </section>
+
+                <section class="card" style="margin-top: 20px;">
+                    <div class="card-title">
+                        <span class="icon-orange">🎯</span>
+                        <h2>LACUNES (CE DONT TU AS BESOIN)</h2>
+                    </div>
+                    <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 10px;">Séparez les matières où vous voulez de l'aide par des virgules.</p>
+                    <textarea name="lacunes" rows="3" class="textarea-skills" placeholder="Ex: Architecture des ordinateurs, JavaScript, Comptabilité">{{ profil.lacunes }}</textarea>
+                    
+                    <button type="submit" class="btn-save-skills">💾 Enregistrer mes matières</button>
+                </section>
+            </form>
+
+            <section class="card" style="margin-top: 40px; clear: both;">
+                <div class="card-title">
+                    <span class="icon-yellow">🤝</span>
+                    <h2>Compatibilité avec d'autres étudiants</h2>
+                </div>
+                <p class="card-subtitle">Voici les profils IFRI disponibles pour de l'entraide :</p>
+
+                <div class="compat-list">
+                    {% for etudiant in suggestions %}
+                        <div class="compat-item">
+                            <div class="compat-user">
+                                <div class="avatar avatar-blue">{{ etudiant.user.username|slice:":1"|upper }}</div>
+                                <div class="user-info">
+                                    <div class="user-name">{{ etudiant.user.username }}</div>
+                                    <div class="user-desc">{{ etudiant.filiere }} - {{ etudiant.get_niveau_display }}</div>
+                                </div>
+                            </div>
+                            <div class="compat-actions">
+                                <span class="match-tag">Étudiant inscrit</span>
+                                <a href="{% url 'messaging:boite_reception' %}"><button class="btn-contact">Contacter</button></a>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p style="color: #64748b; text-align: center;">Aucun autre étudiant inscrit pour le moment.</p>
+                    {% endfor %}
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

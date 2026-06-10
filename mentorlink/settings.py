@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'mentorlink.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mentorlink_db',      # Le nom de la base qu'on vient de créer
+        'USER': 'root',               # Ton nom d'utilisateur MySQL (généralement 'root' en local)
+        'PASSWORD': '230706',               # Ton mot de passe MySQL (laisse vide si tu n'en as pas mis)
+        'HOST': '127.0.0.1',          # L'adresse de ton serveur local
+        'PORT': '3306',               # Le port par défaut de MySQL
     }
 }
 
@@ -120,3 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Django va ranger les photos de profil téléchargées
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

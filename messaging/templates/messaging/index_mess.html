@@ -1,0 +1,192 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages - MentorLink</title>
+    <link rel="stylesheet" href="{% static 'messaging/style_mess.css' %}">
+</head>
+<body>
+    <div class="app-container">
+        
+        <aside class="conversations" id="conversations-panel">
+            <div class="panel-header">
+                <h1><span class="header-icon">💬</span> Messages</h1>
+            </div>
+            
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Rechercher une conversation..." id="search-input">
+            </div>
+
+            <div class="convo-list">
+                {% for contact in contacts %}
+                    <div class="convo-item" id="contact-{{ contact.id }}" data-user="{{ contact.id }}" onclick="selectionnerContact({{ contact.id }}, '{{ contact.username }}')">
+                        <div class="avatar avatar-blue">{{ contact.username|make_list|first|upper }}</div>
+                        <div class="convo-content">
+                            <div class="convo-top">
+                                <div class="convo-name">{{ contact.username }}</div>
+                                <div class="convo-time"></div>
+                            </div>
+                            <div class="convo-bottom">
+                                <div class="convo-preview">Cliquez pour discuter...</div>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p style="padding: 15px; color: #7f8c8d; text-align: center;">Aucun contact pour le moment.</p>
+                {% endfor %}
+            </div>
+        </aside>
+
+        <main class="chat" id="chat-panel">
+            <div class="chat-header">
+                <button class="btn-back" id="btn-back">←</button>
+                <div class="chat-user">
+                    <div class="avatar avatar-blue" id="header-avatar">?</div>
+                    <div class="user-details">
+                        <div class="user-name" id="chat-user-name">Sélectionnez un contact</div>
+                        <div class="user-status" id="chat-status" style="display: none;"><span class="status-dot"></span> En ligne</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="messages-container">
+                <p style="text-align: center; color: #7f8c8d; margin-top: 40%;">Choisissez une conversation à gauche pour commencer.</p>
+            </div>
+
+            <div class="chat-input-area">
+                <input 
+                    type="text" 
+                    class="chat-input" 
+                    id="message-input"
+                    placeholder="Écris un message..."
+                    disabled
+                    onkeypress="gererToucheEntree(event)"
+                >
+                <button class="btn-send" id="btn-send" disabled onclick="envoyerMessage()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </main>
+    </div>
+
+<script>
+    // On récupère le jeton de sécurité Django (CSRF)
+    const csrfToken = '{{ csrf_token }}';
+    
+    // ==========================================
+    // 1. LE MOTEUR DE MESSAGERIE (API)
+    // ==========================================
+    let correspondantId = null; 
+    const monId = {{ request.user.id }}; 
+    const conteneurMessages = document.getElementById('messages-container');
+    const champSaisie = document.getElementById('message-input');
+    const btnEnvoyer = document.getElementById('btn-send');
+
+    function selectionnerContact(id, nom) {
+        correspondantId = id;
+        
+        // Mise à jour visuelle
+        document.getElementById('chat-user-name').textContent = nom;
+        document.getElementById('header-avatar').textContent = nom.charAt(0).toUpperCase();
+        document.getElementById('chat-status').style.display = 'block';
+        
+        // Gestion de la classe "active" sur la liste
+        document.querySelectorAll('.convo-item').forEach(el => el.classList.remove('active'));
+        document.getElementById(`contact-${id}`).classList.add('active');
+        
+        // Débloquer la barre de texte
+        champSaisie.disabled = false;
+        btnEnvoyer.disabled = false;
+        
+        // Aller chercher les messages !
+        chargerMessages();
+
+        // Gestion mobile
+        if (window.innerWidth <= 768) {
+            document.getElementById('conversations-panel').style.display = 'none';
+            document.getElementById('chat-panel').style.display = 'flex';
+        }
+    }
+
+    function chargerMessages() {
+        if (!correspondantId) return;
+
+        // CORRECTION : L'URL pointe bien vers ton application messaging
+        fetch(`/messaging/api/${correspondantId}/`)
+        .then(response => response.json())
+        .then(data => {
+            conteneurMessages.innerHTML = ''; 
+            
+            if(data.messages.length === 0) {
+                conteneurMessages.innerHTML = '<p style="text-align:center; color:#95a5a6; margin-top:20px;">Dites bonjour ! 👋</p>';
+            }
+
+            data.messages.forEach(msg => {
+                const row = document.createElement('div');
+                const bulle = document.createElement('div');
+                
+                if (msg.expediteur_id === monId) {
+                    row.className = 'msg-row msg-row-sent';
+                    bulle.className = 'msg msg-sent';
+                } else {
+                    row.className = 'msg-row';
+                    bulle.className = 'msg msg-received';
+                }
+                
+                bulle.innerHTML = `<p>${msg.contenu}</p><span class="msg-time">${msg.date}</span>`;
+                row.appendChild(bulle);
+                conteneurMessages.appendChild(row);
+            });
+        });
+    }
+
+    function envoyerMessage() {
+        if (!correspondantId) return;
+        const texte = champSaisie.value;
+        if (texte.trim() === '') return; 
+
+        // CORRECTION : Ajout des "headers" de sécurité Django
+        fetch(`/messaging/api/${correspondantId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken  // <--- INDISPENSABLE POUR DJANGO
+            },
+            body: JSON.stringify({ contenu: texte })
+        })
+        .then(() => {
+            champSaisie.value = ''; 
+            chargerMessages(); 
+            setTimeout(() => { conteneurMessages.scrollTop = conteneurMessages.scrollHeight; }, 100);
+        });
+    }
+
+    function gererToucheEntree(event) {
+        if (event.key === "Enter") envoyerMessage();
+    }
+
+    // Boucle de rafraîchissement
+    setInterval(chargerMessages, 3000); 
+
+    // ==========================================
+    // 2. LA NAVIGATION MOBILE
+    // ==========================================
+    document.getElementById('btn-back').addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            document.getElementById('chat-panel').style.display = 'none';
+            document.getElementById('conversations-panel').style.display = 'flex';
+        }
+    });
+
+    if (window.innerWidth > 768) {
+        document.getElementById('chat-panel').style.display = 'flex';
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Profil - MentorLink</title>
+    <link rel="stylesheet" href="{% static 'accounts/style_profil.css' %}">
+</head>
+<body>
+
+    <nav style="position: absolute; top: 0; left: 0; width: 100%; background-color: #1e293b; padding: 15px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); box-sizing: border-box; z-index: 1000;">
+        <a href="{% url 'accounts:dashboard' %}" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">🏠 Accueil</a>
+        <a href="{% url 'accounts:profil' %}" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">👤 Mon Profil</a>
+        <a href="/matching/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">🔍 Matches</a>
+        <a href="/offres/" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">📋 Offres</a>
+        <a href="{% url 'messaging:boite_reception' %}" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-family: sans-serif;">💬 Messages</a>
+    </nav>
+
+    <div style="margin-top: 80px;">
+        <header class="page-header">
+            <div class="header-left">
+                <span style="font-size: 24px; margin-right: 10px;">👤</span>
+                <h1>Mon Profil</h1>
+            </div>
+            <button type="submit" form="form-profil" class="btn-header-save">
+                💾 Enregistrer
+            </button>
+        </header>
+
+        <main class="profile-card">
+            {% if messages %}
+                {% for message in messages %}
+                    <div style="background: #d1e7dd; color: #0f5132; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: 500; text-align: center;">
+                        ✓ {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" enctype="multipart/form-data" id="form-profil">
+                {% csrf_token %}
+                
+                <section class="profile-top">
+                    <div class="avatar-wrapper">
+                        {% if profil.photo %}
+                            <img src="{{ profil.photo.url }}" alt="Avatar" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                        {% else %}
+                            <div class="avatar-circle" style="width: 100px; height: 100px; line-height: 100px; font-size: 40px;">{{ request.user.username|slice:":1"|upper }}</div>
+                        {% endif %}
+                        
+                        <input type="file" name="photo" id="photo-upload" accept="image/*" style="display: none;">
+                        <label for="photo-upload" class="avatar-badge" style="cursor: pointer;" title="Modifier ma photo">
+                            ✏️
+                        </label>
+                    </div>
+                    
+                    <h2 class="profile-name">{% if request.user.first_name %}{{ request.user.first_name }} {{ request.user.last_name }}{% else %}{{ request.user.username }}{% endif %}</h2>
+                    <p class="profile-meta">{{ request.user.email }}</p>
+                    
+                    <div class="profile-tags">
+                        <span class="tag tag-blue">🎓 {% if profil.niveau %}{{ profil.get_niveau_display }}{% else %}Niveau à définir{% endif %}</span>
+                        <span class="tag tag-green">⚡ {% if profil.filiere %}{{ profil.filiere }}{% else %}Filière à définir{% endif %}</span>
+                        <span class="tag tag-orange">👤 {{ profil.user.compte.get_role_display }}</span>
+                    </div>
+                </section>
+
+                <section class="profile-form">
+                    <div class="field">
+                        <label for="prenom">PRÉNOM</label>
+                        <input type="text" name="prenom" id="prenom" value="{{ request.user.first_name }}" placeholder="Entre ton prénom">
+                    </div>
+
+                    <div class="field">
+                        <label for="nom">NOM</label>
+                        <input type="text" name="nom" id="nom" value="{{ request.user.last_name }}" placeholder="Entre ton nom">
+                    </div>
+
+                    <div class="field">
+                        <label for="email">ADRESSE E-MAIL</label>
+                        <input type="email" name="email" id="email" value="{{ request.user.email }}" placeholder="Entre ton email">
+                    </div>
+
+                    <div class="field">
+                        <label for="filiere">FILIÈRE</label>
+                        <select name="filiere" id="filiere">
+                            <option value="">Sélectionne ta filière</option>
+                            <option value="Génie Logiciel" {% if profil.filiere == "Génie Logiciel" %}selected{% endif %}>Génie Logiciel</option>
+                            <option value="Intelligence Artificielle" {% if profil.filiere == "Intelligence Artificielle" %}selected{% endif %}>Intelligence Artificielle</option>
+                            <option value="Sécurité Informatique" {% if profil.filiere == "Sécurité Informatique" %}selected{% endif %}>Sécurité Informatique</option>
+                            <option value="Internet et Multimédias" {% if profil.filiere == "Internet et Multimédias" %}selected{% endif %}>Internet et Multimédias</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="niveau">NIVEAU D'ÉTUDES</label>
+                        <select name="niveau" id="niveau">
+                            <option value="">Sélectionne ton niveau</option>
+                            <option value="L1" {% if profil.niveau == "L1" %}selected{% endif %}>L1</option>
+                            <option value="L2" {% if profil.niveau == "L2" %}selected{% endif %}>L2</option>
+                            <option value="L3" {% if profil.niveau == "L3" %}selected{% endif %}>L3</option>
+                            <option value="M1" {% if profil.niveau == "M1" %}selected{% endif %}>M1</option>
+                            <option value="M2" {% if profil.niveau == "M2" %}selected{% endif %}>M2</option>
+                        </select>
+                    </div>
+                </section>
+
+                <section class="form-footer">
+                    <button type="submit" class="btn-submit">
+                        💾 Enregistrer les modifications
+                    </button>
+                </section>
+            </form>
+        </main>
+    </div>
+</body>
+</html>
