@@ -1,8 +1,3 @@
-
-from django.db import models
-
-# Create your models here.
-
 from django.db import models
 from django.contrib.auth.models import User # Importe la table utilisateur de base de Django
 
@@ -21,8 +16,9 @@ class Profil(models.Model):
     filiere = models.CharField(max_length=100, help_text="Ex: Génie Logiciel, IA...", blank=True, null=True)
     niveau = models.CharField(max_length=2, choices=NIVEAUX, blank=True, null=True)
 
-    competences = models.TextField(help_text="Matières maîtrisées (séparées par des virgules)")
-    lacunes = models.TextField(help_text="Matières où l'étudiant a besoin d'aide")
+    # AJOUT DE blank=True, null=True SUR CES DEUX LIGNES :
+    competences = models.TextField(help_text="Matières maîtrisées (séparées par des virgules)", blank=True, null=True)
+    lacunes = models.TextField(help_text="Matières où l'étudiant a besoin d'aide", blank=True, null=True)
 
     def __str__(self):
         return f"Profil de {self.user.username}"
@@ -70,4 +66,4 @@ class Matching(models.Model):
     date_demande = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.candidat.user.username} -> {self.annonce.matiere} ({self.get_etat_display()})"        
+        return f"{self.candidat.user.username} -> {self.annonce.matiere} ({self.get_etat_display()})"
